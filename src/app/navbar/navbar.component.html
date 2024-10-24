@@ -1,1 +1,85 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+  
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold" style="font-size: 1.4rem" href="#">
+            <span><i class="bi bi-bag-fill"></i></span> ECOSHOP
+        </a>
+
+        <!-- Bouton pour afficher le menu -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu déroulant Catégories -->
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item dropdown mx-3">
+                    <!-- <div class=> -->
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" style="font-size: 1.1rem">Catégories</a>
+                        <ul class="dropdown-menu" style="font-size: 0.8rem" [class.show]="">
+                            <li *ngFor="let categorie of">
+                                <a class="dropdown-item" *ngIf="categorie !== undefined" (click)="goToCategorie()">{{ categorie}}</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-primary" (click)="createCategorie()">
+                                <i class="bi bi-plus-circle"></i> Ajouter une nouvelle Catégorie</a>
+                            </li>
+                        </ul>
+                    <!-- </div> -->
+                </li>
+            </ul>
+        </div>
+  
+        <!-- Menu -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <!-- Barre de recherche -->
+                <form class="d-flex me-5 flex-grow-1" role="search">
+                    <div class="input-group" style="width: 30rem;">
+                        <input class="form-control form-control-lg ms-1 custom-placeholder" type="search" placeholder="Recherchez ici" aria-label="Search">
+                    </div>
+                </form>
+                <!-- Acceuil -->
+                <li class="nav-item mx-3 ms-5">
+                    <a class="nav-link" aria-current="page" routerLink="/home" routerLinkActive="active" style="font-size: 1.1rem">Accueil</a>
+                </li>
+                <!-- Produits -->
+                <li class="nav-item mx-3">
+                    <a class="nav-link" routerLink="/produit/list" routerLinkActive="active" style="font-size: 1.1rem">Produits</a>
+                </li>
+          
+                <!-- icônes -->
+                <!-- Menu déroulant pour l'icone profil -->
+                <li class="nav-item dropdown ms-3" style="font-size: 1.1rem;">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle"></i></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <a>Mon profil</a>
+                        </li>
+                        <li class="dropdown-item" *ngIf="">
+                            <a [routerLink]="['/dashbord']">Admin dashbord</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a (click)="logout()">Déconnexion</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item mx-3" style="font-size: 1.2rem;">
+                    <a class="nav-link" routerLink="/panier">
+                        <span><i class="bi bi-cart4"></i></span>
+                    </a>
+                </li>
+                <!-- 
+                <li class="nav-item mx-3">
+                    <a class="nav-link" href="#" style="font-size: 1.1rem"><i class="bi bi-heart"></i></a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link" href="#" style="font-size: 1.1rem"><i class="bi bi-bell"></i></a>
+                </li>
+                -->
+            </ul>
+        </div>
+    </div>
+</nav>
+  
