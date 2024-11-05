@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --main-color: #fff !important; /* couleur principale de l'application */
+  --secondary-color: #4CAF50 !important; /* couleur secondaire */
+  --tertiary-color: #1E88E5 !important; /* couleur tertiaire */
+  --text-color: #000 !important; /* Noir pour le texte */
+}
+
+.eco-green-text {
+  color: var(--secondary-color);
+}
