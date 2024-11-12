@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProductModule } from './product/product.module';
 import { HomeComponent } from './home/home.component';
 import { CategoryModule } from './category/category.module';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,10 @@ import { CategoryModule } from './category/category.module';
     ProductModule,
     CategoryModule
   ],
-  providers: [],
+  providers: [
+    provideClientHydration(),
+    provideHttpClient(withFetch())
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

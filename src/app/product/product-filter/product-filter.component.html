@@ -1,0 +1,149 @@
+<div class="filters">
+  <div class="filter-header position-sticky top-0 bg-white z-1 pb-2">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="h5 mb-0">Filtres</h3>
+      <button 
+        class="btn btn-sm btn-outline-secondary"
+        (click)="resetFilters()"
+        [disabled]="filterState.categories.selected.length === 0 && !filterState.sort && 
+                   filterState.priceRange.current.min === filterState.priceRange.min && 
+                   filterState.priceRange.current.max === filterState.priceRange.max"
+      >
+        <i class="bi bi-arrow-counterclockwise"></i>
+        Réinitialiser
+      </button>
+    </div>
+  </div>
+
+  <div class="filter-container">
+    <div class="accordion" id="filterAccordion">
+      <!-- Le reste du contenu de l'accordéon reste identique -->
+      <div class="accordion" id="filterAccordion">
+        <!-- Tri -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#sortCollapse">
+              Trier par prix
+            </button>
+          </h2>
+          <div id="sortCollapse" class="accordion-collapse collapse show" data-bs-parent="#filterAccordion">
+            <div class="accordion-body">
+              <div class="btn-group w-100">
+                <button 
+                  class="btn btn-outline-secondary btn-sm"
+                  [class.active]="filterState.sort === 'asc'"
+                  (click)="onSortChange(filterState.sort === 'asc' ? null : 'asc')"
+                >
+                  <i class="bi bi-arrow-up"></i> Croissant
+                </button>
+                <button 
+                  class="btn btn-outline-secondary btn-sm"
+                  [class.active]="filterState.sort === 'desc'"
+                  (click)="onSortChange(filterState.sort === 'desc' ? null : 'desc')"
+                >
+                  <i class="bi bi-arrow-down"></i> Décroissant
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Catégories -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesCollapse">
+              Catégories
+            </button>
+          </h2>
+          <div id="categoriesCollapse" class="accordion-collapse collapse show" data-bs-parent="#filterAccordion">
+            <div class="accordion-body">
+              <div class="category-list" [class.loading]="isLoading.categories">
+                <div class="form-check" *ngFor="let category of paginatedCategories">
+                  <input 
+                    class="form-check-input" 
+                    type="checkbox" 
+                    [id]="category"
+                    [checked]="filterState.categories.selected.includes(category)"
+                    (change)="onCategoryChange(category)"
+                  >
+                  <label class="form-check-label text-capitalize" [for]="category">
+                    {{ category }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <!-- Pagination -->
+          <nav *ngIf="filterState.categories.list.length > filterState.itemsPerPage">
+            <ul class="pagination pagination-sm justify-content-center mt-3">
+              <li class="page-item" [class.disabled]="filterState.currentPage === 1">
+                <button class="page-link" (click)="onPageChange(filterState.currentPage - 1)">
+                  <i class="bi bi-chevron-left"></i>
+                </button>
+              </li>
+              <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+                  [class.active]="filterState.currentPage === i + 1">
+                <button class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</button>
+              </li>
+              <li class="page-item" [class.disabled]="filterState.currentPage === totalPages">
+                <button class="page-link" (click)="onPageChange(filterState.currentPage + 1)">
+                  <i class="bi bi-chevron-right"></i>
+                </button>
+              </li>
+            </ul>
+          </nav>      
+                
+          <div *ngIf="isLoading.categories" class="text-center py-3">
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="visually-hidden">Chargement...</span>
+            </div>
+          </div>  
+        </div>
+    
+        <!-- Prix -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#priceCollapse">
+              Fourchette de prix
+            </button>
+          </h2>
+          <div id="priceCollapse" class="accordion-collapse collapse show" data-bs-parent="#filterAccordion">
+            <div class="accordion-body">
+              <div class="row g-2">
+                <div class="col">
+                  <label class="form-label small">Min</label>
+                  <div class="input-group input-group-sm">
+                    <input 
+                      type="number" 
+                      class="form-control" 
+                      [value]="filterState.priceRange.current.min"
+                      (change)="onPriceRangeChange($event, 'min')"
+                      [min]="filterState.priceRange.min"
+                      [max]="filterState.priceRange.current.max"
+                    >
+                    <span class="input-group-text">€</span>
+                  </div>
+                </div>
+                <div class="col">
+                  <label class="form-label small">Max</label>
+                  <div class="input-group input-group-sm">
+                    <input 
+                      type="number" 
+                      class="form-control" 
+                      [value]="filterState.priceRange.current.max"
+                      (change)="onPriceRangeChange($event, 'max')"
+                      [min]="filterState.priceRange.current.min"
+                      [max]="filterState.priceRange.max"
+                    >
+                    <span class="input-group-text">€</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+</div>

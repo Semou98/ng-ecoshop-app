@@ -1,0 +1,30 @@
+<div class="card h-100 shadow-sm product-card" (click)="navigateToProductDetails()">
+  <div class="card-img-wrapper">
+    <img [src]="product.image" 
+         [alt]="product.title" 
+         class="card-img-top p-3">
+  </div>
+
+  <div class="card-body d-flex flex-column">
+    <h3 class="card-title h5 mb-2">{{ product.title }}</h3>
+    
+    <div class="mb-2">
+      <span class="text-success fw-bold">{{ product.price | currency:'EUR' }}</span>
+    </div>
+
+    <div class="mb-3">
+      <div class="d-flex align-items-center">
+        <div class="text-warning me-2">
+          <i class="bi bi-star-fill"></i>
+          {{ product.rating.rate }}
+        </div>
+        <small class="text-muted">({{ product.rating.count }})</small>
+      </div>
+    </div>
+
+    <button class="eco-btn mt-auto" (click)="onAddToCart(); $event.stopPropagation()">
+      <i class="bi bi-cart-plus me-2"></i>
+      Ajouter
+    </button>
+  </div>
+</div>

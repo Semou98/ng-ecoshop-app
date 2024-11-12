@@ -1,0 +1,77 @@
+<div class="container py-4">
+  <ng-container *ngIf="product$ | async as product">
+    <div class="card shadow-sm" *ngIf="product">
+      <div class="row g-0">
+        <!-- Image du produit -->
+        <div class="col-md-6">
+          <div class="p-4">
+            <img [src]="product.image" 
+                 [alt]="product.title"
+                 class="img-fluid rounded product-image">
+          </div>
+        </div>
+
+        <!-- Informations produit -->
+        <div class="col-md-6">
+          <div class="p-4">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a [routerLink]="['/products']">Produits</a></li>
+                <li class="breadcrumb-item active">{{ product.title }}</li>
+              </ol>
+            </nav>
+
+            <h1 class="h2 mb-3">{{ product.title }}</h1>
+            
+            <div class="mb-3">
+              <span class="h3 text-success">{{ product.price | currency:'EUR' }}</span>
+            </div>
+
+            <div class="mb-3">
+              <div class="d-flex align-items-center">
+                <div class="text-warning me-2">
+                  <i class="bi bi-star-fill"></i>
+                  {{ product.rating.rate }}
+                </div>
+                <small class="text-muted">({{ product.rating.count }} avis)</small>
+              </div>
+            </div>
+
+            <p class="mb-4">{{ product.description }}</p>
+
+            <div class="d-grid gap-2">
+              <button class="eco-btn" (click)="onAddToCart(product)">
+                <i class="bi bi-cart-plus me-2"></i>
+                Ajouter au panier
+              </button>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-between align-items-center">
+              <div>
+                <span class="badge bg-success">{{ product.category }}</span>
+              </div>
+              
+              <div class="d-flex gap-2">
+              <button class="btn btn-outline-primary btn-sm" (click)="onEditProduct(+product.id)">
+                <i class="bi bi-pencil-square me-1"></i>
+                  Éditer
+                </button>
+                <button class="btn btn-outline-danger btn-sm" (click)="onDeleteProduct(+product.id)">
+                  <i class="bi bi-trash me-1"></i>
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="position-fixed top-50 start-50 translate-middle">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+</div>
