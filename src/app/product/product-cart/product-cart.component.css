@@ -1,0 +1,24 @@
+.product-card {
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+  background-color: var(--primary-color);
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-img-wrapper {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gray-light);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.card-img-wrapper img {
+  max-height: 180px;
+  object-fit: contain;
+}

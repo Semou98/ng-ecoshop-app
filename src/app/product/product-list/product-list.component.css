@@ -1,0 +1,11 @@
+.filter-card {
+    position: sticky;
+    top: 1rem;
+  }
+  
+@media (max-width: 768px) {
+  .filter-card {
+    position: static;
+    margin-bottom: 1rem;
+  }
+}

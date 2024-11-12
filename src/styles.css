@@ -1,12 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
-
 :root {
-  --main-color: #fff !important; /* couleur principale de l'application */
-  --secondary-color: #4CAF50 !important; /* couleur secondaire */
-  --tertiary-color: #1E88E5 !important; /* couleur tertiaire */
-  --text-color: #000 !important; /* Noir pour le texte */
+  --primary-color: #ffffff;
+  --text-color: #000000;
+  --secondary-color: #4CAF50;
+  --tertiary-color: #2E7D32;  /* Vert plus foncé pour le contraste */
+  --hover-color: #45a049;
+  --gray-light: #f5f5f5;
+  --gray-medium: #e0e0e0;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --radius: 0.5rem;
+  --transition: all 0.3s ease;
 }
 
-.eco-green-text {
-  color: var(--secondary-color);
+/* Reset et styles de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Styles communs pour les boutons */
+.eco-btn {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.eco-btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-2px);
+}
+
+/* Classes utilitaires */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
 }
