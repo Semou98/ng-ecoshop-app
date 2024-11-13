@@ -10,36 +10,10 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <!-- Menu déroulant Catégories -->
-        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item dropdown mx-3">
-                    <!-- <div class=> -->
-                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" style="font-size: 1.1rem">Catégories</a>
-                        <ul class="dropdown-menu" style="font-size: 0.8rem" [class.show]="">
-                            <li *ngFor="let categorie of">
-                                <a class="dropdown-item" *ngIf="categorie !== undefined" (click)="goToCategorie()">{{ categorie}}</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-primary" (click)="createCategorie()">
-                                <i class="bi bi-plus-circle"></i> Ajouter une nouvelle Catégorie</a>
-                            </li>
-                        </ul>
-                    <!-- </div> -->
-                </li>
-            </ul>
-        </div>
         
         <!-- Menu -->
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
-                <!-- Barre de recherche -->
-                <form class="d-flex me-5 flex-grow-1" role="search">
-                    <div class="input-group" style="width: 30rem;">
-                        <input class="form-control form-control-lg ms-1 custom-placeholder" type="search" placeholder="Recherchez ici" aria-label="Search">
-                    </div>
-                </form>
                 <!-- Acceuil -->
                 <li class="nav-item mx-3">
                     <a class="nav-link" aria-current="page" href="#" routerLinkActive="active" style="font-size: 1.1rem">Accueil</a>
