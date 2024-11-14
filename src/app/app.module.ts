@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProductModule } from './product/product.module';
 import { HomeComponent } from './home/home.component';
-import { CategoryModule } from './category/category.module';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     ProductModule,
-    CategoryModule
   ],
   providers: [
     provideClientHydration(),

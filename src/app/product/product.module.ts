@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditProductComponent } from './products-management/edit-product/edit-product.component';
 import { AddProductComponent } from './products-management/add-product/add-product.component';
 import { ProductFormComponent } from './products-management/product-form/product-form.component';
-import { CategoryModule } from '../category/category.module';
 
 
 const productRoutes : Routes = [
@@ -36,7 +35,6 @@ const productRoutes : Routes = [
     CommonModule,
     RouterModule.forChild(productRoutes),
     ReactiveFormsModule,
-    CategoryModule
   ],
   exports: [
     RouterModule
