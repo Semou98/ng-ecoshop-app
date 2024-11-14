@@ -10,9 +10,13 @@ export class ProductService {
 
   private productsApiUrl = 'https://fakestoreapi.com/products';
   private categoriesApiUrl = 'https://fakestoreapi.com/products/categories';
-  private localProducts: Product[] = [];
+
+  // Source unique de vérité pour les produits et catégories
   public localProductsSubject = new BehaviorSubject<Product[]>([]);
   private localCategoriesSubject = new BehaviorSubject<string[]>([]);
+  private localProducts: Product[] = [];
+
+  // Flag pour éviter le rechargement multiple des données
   private isInitialized = false;
   
   constructor(private http: HttpClient) {
@@ -42,6 +46,10 @@ export class ProductService {
     return this.localCategoriesSubject.asObservable();
   }
 
+  getLoadingState(): boolean {
+    return this.isInitialized = true;
+  }
+
   createProduct(product: Partial<Product>): Observable<Product> {
     return this.http.post<Product>(this.productsApiUrl, product).pipe(
       map(response => {
@@ -58,6 +66,15 @@ export class ProductService {
       catchError((error) => this.handleError(error, null))
     );
   }
+
+  /*createProduct(product: Omit<Product, 'id'>): Observable<Product> {
+    return this.http.post<Product>(this.productsApiUrl, product).pipe(
+      tap(newProduct => {
+        const currentProducts = this.localProductsSubject.getValue();
+        this.localProductsSubject.next([...currentProducts, newProduct]);
+      })
+    );
+  }*/
 
   private generateNewId(): number {
     return this.localProducts.length > 0 
