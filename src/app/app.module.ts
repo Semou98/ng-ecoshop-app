@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProductModule } from './product/product.module';
 import { HomeComponent } from './home/home.component';
-import { CategoryModule } from './category/category.module';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { NotificationComponent } from './notification/notification.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,7 +22,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     AppRoutingModule,
     ProductModule,
-    CategoryModule
   ],
   providers: [
     provideClientHydration(),

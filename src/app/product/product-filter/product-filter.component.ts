@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { CategoryService } from '../../category/category.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { FilterOptions } from '../../models/filter-options';
@@ -35,14 +34,14 @@ export class ProductFilterComponent implements OnInit {
     itemsPerPage: 5
   };
 
-  loading$ = this.categoryService.getLoadingState();
+  loading$ = this.productService.getLoadingState();
 
   constructor(
-    private categoryService: CategoryService,
+    private productService: ProductService,
   ) {}
 
   ngOnInit() {
-    this.categoryService.getAllCategories()
+    this.productService.getAllCategories()
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (categories) => {

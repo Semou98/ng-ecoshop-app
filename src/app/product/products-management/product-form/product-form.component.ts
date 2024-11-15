@@ -2,10 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../../../models/product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../product.service';
-import { CategoryService } from '../../../category/category.service';
 import { Router } from '@angular/router';
 import { finalize, Observable } from 'rxjs';
-import { Category } from '../../../models/category';
 
 @Component({
   selector: 'app-product-form',
@@ -24,7 +22,7 @@ export class ProductFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
-    private categoryService: CategoryService,
+    //private categoryService: CategoryService,
     private router: Router
   ) {}
 
@@ -52,7 +50,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   loadCategories(): void {
-    this.categoryService.getAllCategories().subscribe(
+    this.productService.getAllCategories().subscribe(
       categories => this.categories = categories
     );
   }

@@ -120,7 +120,6 @@ export class ProductListComponent {
     this.viewModel$ = this.viewModel$.pipe(
       map(vm => ({...vm, searchResults: results}))
     );
-    //this.searchResultsSubject.next(results);
   }
   onAddToCart(product: Product) {
     this.cartService.addToCart(product);
