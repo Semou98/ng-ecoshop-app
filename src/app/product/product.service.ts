@@ -67,15 +67,6 @@ export class ProductService {
     );
   }
 
-  /*createProduct(product: Omit<Product, 'id'>): Observable<Product> {
-    return this.http.post<Product>(this.productsApiUrl, product).pipe(
-      tap(newProduct => {
-        const currentProducts = this.localProductsSubject.getValue();
-        this.localProductsSubject.next([...currentProducts, newProduct]);
-      })
-    );
-  }*/
-
   private generateNewId(): number {
     return this.localProducts.length > 0 
       ? Math.max(...this.localProducts.map(p => Number(p.id))) + 1 

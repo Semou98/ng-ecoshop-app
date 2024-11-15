@@ -7,11 +7,6 @@ import { FilterOptions } from '../../models/filter-options';
 import { CartService } from '../../cart/cart.service';
 import { NotificationService } from '../../notification.service';
 
-/*interface ViewModel {
-  loading: boolean;
-  products: Product[];
-  filteredProducts: Product[];
-}*/
 
 export interface ProductListViewModel {
   loading: boolean;
