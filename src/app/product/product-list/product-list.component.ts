@@ -3,9 +3,9 @@ import { Product } from '../../models/product.model';
 import { ProductService } from '../product.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, combineLatest, finalize, map, Observable, of, startWith, Subject, take, takeUntil, tap } from 'rxjs';
-import { FilterOptions } from '../../models/filter-options';
 import { CartService } from '../../cart/cart.service';
 import { NotificationService } from '../../notification.service';
+import { FilterOptions } from '../../interfaces/filter-options.interface';
 
 /*interface ViewModel {
   loading: boolean;
@@ -28,85 +28,96 @@ export interface ProductListViewModel {
 })
 export class ProductListComponent {
 
-  viewModel$: Observable<ProductListViewModel>;
-  private destroy$ = new Subject<void>();
+  private viewModelSubject = new BehaviorSubject<ProductListViewModel>({
+    loading: true,
+    products: [],
+    filteredProducts: [],
+    categories: [],
+    searchResults: []
+  });
 
-  products$: Observable<Product[]>;
-  @Input() product!: Product;
-  filteredProducts: Product[] = [];
-  loading = false;
-  
-  private searchResultsSubject = new BehaviorSubject<Product[]>([]);
-  private loadingSubject = new BehaviorSubject<boolean>(true);
+  viewModel$ = this.viewModelSubject.asObservable();
+  private destroy$ = new Subject<void>();
   
   constructor(
     private productService: ProductService,
     private router: Router,
     private cartService: CartService,
     private notificationService: NotificationService
-  ) {
-    this.viewModel$ = this.initViewModel();
+  ) {}
+
+  ngOnInit() {
+    this.initViewModel();
   }
 
-  private initViewModel(): Observable<ProductListViewModel> {
-    return combineLatest([
+  private initViewModel(): void {
+    combineLatest([
       this.productService.getAllProducts(),
       this.productService.getAllCategories()
     ]).pipe(
-      map(([products, categories]) => ({
-        loading: false,
-        products,
-        filteredProducts: products,
-        categories,
-        searchResults: products
-      })),
-      startWith({
-        loading: true,
-        products: [],
-        filteredProducts: [],
-        categories: [],
-        searchResults: []
+      takeUntil(this.destroy$),
+      map(([products, categories]) => {
+        const savedFilters = localStorage.getItem('currentFilters');
+        let filteredProducts = products;
+        
+        if (savedFilters) {
+          const filters = JSON.parse(savedFilters);
+          filteredProducts = this.applyFilters(products, filters);
+        }
+
+        return {
+          loading: false,
+          products,
+          filteredProducts,
+          categories,
+          searchResults: []
+        };
       }),
       catchError(error => {
         console.error('Erreur lors du chargement des produits:', error);
-        return [{ 
+        return of({
           loading: false,
           products: [],
           filteredProducts: [],
           categories: [],
           searchResults: []
-        }];
-      }),
-      takeUntil(this.destroy$)
-    );
+        });
+      })
+    ).subscribe(viewModel => {
+      this.viewModelSubject.next(viewModel);
+    });
   }
 
   onFilterChange(filters: FilterOptions) {
-    this.viewModel$ = this.viewModel$.pipe(
-      map(vm => ({
-        ...vm,
-        filteredProducts: this.applyFilters(vm.products, filters)
-      }))
-    );
+    console.log('Filters received:', filters);
+    localStorage.setItem('currentFilters', JSON.stringify(filters));
+    
+    const currentViewModel = this.viewModelSubject.value;
+    const filteredProducts = this.applyFilters(currentViewModel.products, filters);
+    
+    this.viewModelSubject.next({
+      ...currentViewModel,
+      loading: false,
+      filteredProducts
+    });
   }
 
   private applyFilters(products: Product[], filters: FilterOptions): Product[] {
     let filtered = [...products];
 
-    // Filtre par catégorie
     if (filters.category && filters.category.length > 0) {
       filtered = filtered.filter(product => 
         filters.category?.includes(product.category)
       );
     }
 
-    // Filtre par prix
-    filtered = filtered.filter(product => 
-      product.price >= (filters.priceRange?.min || 0) && 
-      product.price <= (filters.priceRange?.max || Infinity)
-    );
+    if (filters.priceRange) {
+      filtered = filtered.filter(product => 
+        product.price >= filters.priceRange!.min && 
+        product.price <= filters.priceRange!.max
+      );
+    }
 
-    // Tri par prix
     if (filters.sort) {
       filtered = filtered.sort((a, b) => 
         filters.sort === 'asc' ? a.price - b.price : b.price - a.price
@@ -117,10 +128,14 @@ export class ProductListComponent {
   }
 
   onSearchResults(results: Product[]) {
-    this.viewModel$ = this.viewModel$.pipe(
-      map(vm => ({...vm, searchResults: results}))
-    );
+    const currentViewModel = this.viewModelSubject.value;
+    this.viewModelSubject.next({
+      ...currentViewModel,
+      searchResults: results,
+      loading: false
+    });
   }
+
   onAddToCart(product: Product) {
     this.cartService.addToCart(product);
     this.notificationService.show('Produit ajouté au panier avec succès !');
