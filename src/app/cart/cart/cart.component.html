@@ -1,0 +1,31 @@
+<div class="container py-4">
+  <h1 class="h2 mb-4">Votre panier</h1>
+
+  <ng-container *ngIf="cartItems.length > 0; else emptyCart">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card shadow-sm mb-4" *ngFor="let item of cartItems">
+          <app-cart-item 
+            [item]="item" 
+            (removeItem)="onRemoveFromCart(item.product.id)"
+            (updateQuantity)="onUpdateQuantity(item.product.id, $event)">
+          </app-cart-item>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <app-cart-summary
+          [total]="cartTotal"
+          (clearCart)="onClearCart()">
+        </app-cart-summary>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #emptyCart>
+    <div class="text-center py-5 text-muted">
+      <i class="bi bi-cart-x display-4 mb-3"></i>
+      <h3>Votre panier est vide</h3>
+      <p>Commencez à ajouter des produits !</p>
+    </div>
+  </ng-template>
+</div>

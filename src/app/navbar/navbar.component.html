@@ -57,9 +57,9 @@
                         <li class="dropdown-item">
                             <a>Mon profil</a>
                         </li>
-                        <li class="dropdown-item" *ngIf="">
-                            <a [routerLink]="['/dashbord']">Admin dashbord</a>
-                        </li>
+                        <!-- <li class="dropdown-item" *ngIf="">
+                            <a routerLink="['/dashbord']">Admin dashbord</a>
+                        </li> -->
                         <li class="dropdown-item">
                             <a (click)="logout()">Déconnexion</a>
                         </li>
@@ -67,8 +67,11 @@
                 </li>
                 <!-- icône Panier -->
                 <li class="nav-item mx-3" style="font-size: 1.2rem;">
-                    <a class="nav-link" routerLink="/panier">
-                        <span><i class="bi bi-cart4"></i></span>
+                    <a class="nav-link" routerLink="/cart">
+                        <i class="bi bi-cart"></i>
+                        <span class="badge bg-success" *ngIf="cartItemCount > 0">
+                            {{ cartItemCount }}
+                        </span>
                     </a>
                 </li>
                 <!-- icône contact -->

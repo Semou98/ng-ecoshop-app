@@ -39,7 +39,7 @@
             <!-- Affichage des produits dans des carts -->
             <app-product-cart
               [product]="product"
-              (addToCart)="onAddToCart($event)"
+              (click)="onAddToCart(product)"
               [routerLink]="['/product', product.id]"
               class="h-100"
             ></app-product-cart>
