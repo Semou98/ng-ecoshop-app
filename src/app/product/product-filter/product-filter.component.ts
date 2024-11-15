@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
-import { FilterOptions } from '../../models/filter-options';
+import { FilterOptions } from '../../interfaces/filter-options.interface';
 import { FilterState } from '../../interfaces/filter-state.interface';
 import { ProductService } from '../product.service';
+
 
 @Component({
   selector: 'app-product-filter',
@@ -114,6 +115,7 @@ export class ProductFilterComponent implements OnInit {
         max: this.filterState.priceRange.current.max
       }
     };
+    console.log('Filters emitted:', filters);
     this.filterChange.emit(filters);
   }
   
