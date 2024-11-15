@@ -4,7 +4,10 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'products', loadChildren: () => import('./product/product.module').then((m) => m.ProductModule),},
+
+  {path: 'products', loadChildren: () => import('./product/product.module').then((m) => m.ProductModule),},
+
+  { path: 'cart', loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule)}
 ];
 
 @NgModule({

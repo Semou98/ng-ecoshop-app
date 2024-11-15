@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../product.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, combineLatest, finalize, map, Observable, of, startWith, Subject, take, takeUntil, tap } from 'rxjs';
 import { FilterOptions } from '../../models/filter-options';
+import { CartService } from '../../cart/cart.service';
+import { NotificationService } from '../../notification.service';
 
 /*interface ViewModel {
   loading: boolean;
@@ -30,6 +32,7 @@ export class ProductListComponent {
   private destroy$ = new Subject<void>();
 
   products$: Observable<Product[]>;
+  @Input() product!: Product;
   filteredProducts: Product[] = [];
   loading = false;
   
@@ -38,7 +41,9 @@ export class ProductListComponent {
   
   constructor(
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService,
+    private notificationService: NotificationService
   ) {
     this.viewModel$ = this.initViewModel();
   }
@@ -116,9 +121,9 @@ export class ProductListComponent {
       map(vm => ({...vm, searchResults: results}))
     );
   }
-
   onAddToCart(product: Product) {
-    // Implémenter la logique d'ajout au panier
+    this.cartService.addToCart(product);
+    this.notificationService.show('Produit ajouté au panier avec succès !');
   }
 
   onCreateProduct() {

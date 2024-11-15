@@ -3,6 +3,8 @@ import { Product } from '../../models/product.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../product.service';
 import { catchError, Observable, switchMap, tap } from 'rxjs';
+import { CartService } from '../../cart/cart.service';
+import { NotificationService } from '../../notification.service';
 
 @Component({
   selector: 'app-product-details',
@@ -17,7 +19,9 @@ export class ProductDetailsComponent {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService,
+    private notificationService: NotificationService
   ) {
     this.product$ = this.route.paramMap.pipe(
       switchMap(params => {
@@ -34,7 +38,8 @@ export class ProductDetailsComponent {
   }
 
   onAddToCart(product: Product) {
-    // Implémenter la logique d'ajout au panier
+    this.cartService.addToCart(product);
+    this.notificationService.show('Produit ajouté au panier avec succès !');
   }
 
   onEditProduct(productId: number) {
