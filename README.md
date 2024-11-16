@@ -6,49 +6,36 @@ EcoShop est une plateforme d'e-commerce spécialisée dans les produits écologi
 
 ## 1. Barre de navigation qui devient un menu hamburger sur mobile
 - Logo cliquable et renvoyant à la page d'accueil.
-- liens vers les pages Accueil, Produits, Catégories (menu déroulant) et Contact.
-- Barre de recherche.
-- Des icônes Panier et Compte utilisateur visible en haut à droite
+- liens vers les pages Accueil, Produits et Panier.
 
 ### 2. Page d'accueil
 - Bannière avec un message marketing écologique.
 - Sections de mise en avant des produits populaires.
-- Liens vers les catégories de produits.
 
 ### 3. Catalogue de produits
-- Affichage des produits disponibles, avec pagination ou lazy loading pour améliorer la performance.
-- Filtres pour affiner la recherche (par catégorie, prix, marque, etc.).
-- Barre de recherche pour faciliter la navigation.
+- Affichage des produits disponibles;
+- Barre de recherche pour faciliter la navigation;
+- Filtres pour affiner la recherche de produits (par prix croissant/décroissant, par catégorie et par palettes de prix).
 
 ### 4. Page produit détaillée
-- Détails du produit : nom, description, prix, éco-labels.
-- Galerie d'images du produit.
+- Détails du produit : nom, description, image, prix.
 - Bouton "Ajouter au panier".
 - Avis clients et notation.
 
 ### 5. Panier
 - Liste des produits ajoutés au panier.
 - Option pour modifier les quantités ou supprimer des articles.
-- Affichage du prix total et des frais de livraison éventuels.
+- Affichage du prix total.
 - Bouton pour passer à la commande.
-
-### 6. Formulaire de contact
-- Formulaire simple (nom, email, message) pour que les utilisateurs puissent poser des questions.
-- Envoi d'email avec un service backend (simulé pour l'instant).
-
-### 7. Page de commande (facultatif au début)
-- Récapitulatif du panier et options de livraison.
-- Formulaire pour les informations de paiement et de livraison.
-- Confirmation de la commande après validation.
 
 ## Technologies utilisées
 - **Frontend** : Angular, TypeScript, Bootstrap, HTML et CSS
-- **Outils** : GitHub, Vercel pour le déploiement, Git pour le contrôle de version
+- **Outils** : GitHub, Jest pour les tests, Vercel pour le déploiement, Git pour le contrôle de version
 
 ## Installation et mise en place du projet
-1. Cloner le dépôt GitHub:
-   git clone https://github.com/Semou98/ng-ecoshop-app.git
+**Cloner le dépôt GitHub**: git clone https://github.com/Semou98/ng-ecoshop-app.git
 
+## Lien site du projet:
 
 
 ## ********************************************************
@@ -70,7 +57,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests via [Jest]
 
 ## Running end-to-end tests
 
