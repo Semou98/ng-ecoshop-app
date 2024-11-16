@@ -1,59 +1,60 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" role="navigation" aria-label="Navigation principale">
     <div class="container-fluid">
-  
         <!-- Logo -->
-        <a class="navbar-brand fw-bold" style="font-size: 1.4rem" href="#">
-            <span><i class="bi bi-bag-fill"></i></span> ECOSHOP
+        <a class="navbar-brand fw-bold navbar-logo" href="#" aria-label="Accueil ECOSHOP">
+            <span><i class="bi bi-bag-fill text-success" aria-hidden="true"></i></span> ECOSHOP
         </a>
 
         <!-- Bouton pour afficher le menu -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" 
+                aria-expanded="false" 
+                aria-label="Ouvrir le menu de navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         
         <!-- Menu -->
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                <!-- Acceuil -->
-                <li class="nav-item mx-3">
-                    <a class="nav-link" aria-current="page" href="#" routerLinkActive="active" style="font-size: 1.1rem">Accueil</a>
-                </li>
-                <!-- Produits -->
-                <li class="nav-item mx-3">
-                    <a class="nav-link" routerLink="/products/list" routerLinkActive="active" style="font-size: 1.1rem">Produits</a>
-                </li>
-          
-                <!-- icônes -->
-                <!-- Icône profil (menu déroulant) -->
-                <li class="nav-item dropdown ms-3" style="font-size: 1.1rem;">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle"></i></a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item">
-                            <a>Mon profil</a>
-                        </li>
-                        <!-- <li class="dropdown-item" *ngIf="">
-                            <a routerLink="['/dashbord']">Admin dashbord</a>
-                        </li> -->
-                        <li class="dropdown-item">
-                            <a (click)="logout()">Déconnexion</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- icône Panier -->
-                <li class="nav-item mx-3" style="font-size: 1.2rem;">
-                    <a class="nav-link" routerLink="/cart">
-                        <i class="bi bi-cart"></i>
-                        <span class="badge bg-success" *ngIf="cartItemCount > 0">
-                            {{ cartItemCount }}
-                        </span>
+            <ul class="navbar-nav mb-2 mb-lg-0" role="menubar">
+                <!-- Accueil -->
+                <li class="nav-item mx-3" role="none">
+                    <a class="nav-link nav-hover d-flex align-items-center" 
+                       routerLink="/" 
+                       routerLinkActive="active" 
+                       [routerLinkActiveOptions]="{exact: true}"
+                       role="menuitem"
+                       aria-label="Page d'accueil">
+                        <i class="bi bi-house-door-fill me-2" aria-hidden="true"></i> Accueil
                     </a>
                 </li>
-                <!-- icône contact -->
-                <li class="nav-item mx-3 ms-2">
-                    <a class="nav-link" href="#" style="font-size: 1.1rem"><i class="bi bi-envelope-fill"></i></a>
+                <!-- Produits -->
+                <li class="nav-item mx-3" role="none">
+                    <a class="nav-link nav-hover d-flex align-items-center" 
+                       routerLink="/products/list" 
+                       routerLinkActive="active"
+                       role="menuitem"
+                       aria-label="Liste des produits">
+                        <i class="bi bi-grid-fill me-2" aria-hidden="true"></i> Produits
+                    </a>
+                </li>
+          
+                <!-- Icône Panier -->
+                <li class="nav-item mx-3" role="none">
+                    <a class="nav-link nav-hover position-relative" 
+                       routerLink="/cart" 
+                       routerLinkActive="active"
+                       role="menuitem"
+                       [attr.aria-label]="'Panier' + (cartItemCount > 0 ? ' contenant ' + cartItemCount + ' articles' : ' vide')">
+                        <i class="bi bi-cart4" aria-hidden="true"></i> Panier
+                        <span *ngIf="cartItemCount > 0" 
+                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"
+                              aria-hidden="true">
+                            {{cartItemCount}}
+                        </span>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-  
