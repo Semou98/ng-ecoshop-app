@@ -1,5 +1,80 @@
-/* Texte du placeholder */
-.custom-placeholder::placeholder {
-    font-size: 1rem;
-    color: grey;
+.navbar {
+    --bs-navbar-color: var(--text-color);
 }
+
+.navbar-logo {
+    font-size: 1.4rem;
+    transition: var(--transition);
+    color: var(--text-color);
+}
+
+.navbar-logo:hover, .navbar-logo:focus {
+    color: var(--secondary-color);
+    outline: none;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    position: relative;
+    transition: var(--transition);
+    color: var(--text-color) !important;
+}
+
+.nav-hover::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+.nav-hover:hover::after,
+.nav-hover:focus::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-hover:hover,
+.nav-hover:focus {
+    color: var(--secondary-color) !important;
+    outline: none;
+}
+
+.nav-link.active {
+    color: var(--secondary-color) !important;
+    font-weight: bold;
+}
+
+/* Style pour l'icône du panier */
+.bi-cart4 {
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.nav-link:hover .bi-cart4,
+.nav-link:focus .bi-cart4 {
+    transform: translateY(-2px);
+}
+
+/* Badge du panier */
+.badge {
+    font-size: 0.7rem;
+    padding: 0.25em 0.6em;
+}
+
+/* Amélioration du focus pour l'accessibilité */
+:focus-visible {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Mode sombre */
+/* @media (prefers-color-scheme: dark) {
+    .navbar {
+        --bs-navbar-color: rgba(255, 255, 255, 0.85);
+    }
+} */

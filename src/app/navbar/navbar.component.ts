@@ -25,10 +25,6 @@ export class NavbarComponent {
       this.subscription.unsubscribe();
     }
   }
-  
-  createCategorie(){}
-
-  goToCategorie(){}
 
   logout(){}
 }
