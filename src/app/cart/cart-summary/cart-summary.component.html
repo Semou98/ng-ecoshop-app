@@ -1,19 +1,28 @@
-<div class="card shadow-sm">
+<div class="card shadow-sm" role="complementary" aria-label="Résumé du panier">
   <div class="card-body">
-    <h3 class="card-title h5 mb-3">Récapitulatif</h3>
+    <h3 class="card-title h5 mb-3" id="cart-summary-title">Récapitulatif</h3>
     <div class="mb-3">
       <div class="d-flex justify-content-between">
-        <span>Total</span>
-        <span class="text-success fw-bold">{{ total | currency:'EUR' }}</span>
+        <span id="total-label">Total</span>
+        <span class="text-success fw-bold" 
+              aria-labelledby="total-label" 
+              role="text">
+          {{ total | currency:'EUR' }}
+        </span>
       </div>
     </div>
     <div class="d-grid">
-      <button class="eco-btn" (click)="onClearCart()">
-        <i class="bi bi-trash me-2"></i>
+      <button class="eco-btn" 
+              (click)="onClearCart()"
+              aria-label="Vider le panier">
+        <i class="bi bi-trash me-2" aria-hidden="true"></i>
         Vider le panier
       </button>
-      <a [routerLink]="['/cart/summary']" class="eco-btn mt-2">
-        <i class="bi bi-check-circle me-2"></i>
+      <a [routerLink]="['/cart/summary']" 
+         class="eco-btn mt-2"
+         role="button"
+         aria-label="Passer à la caisse">
+        <i class="bi bi-check-circle me-2" aria-hidden="true"></i>
         Passer à la caisse
       </a>
     </div>
