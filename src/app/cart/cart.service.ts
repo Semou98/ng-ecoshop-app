@@ -73,6 +73,7 @@ export class CartService {
 
   clearCart(): void {
     localStorage.removeItem('cart');
+    this.cartItems.next([]);
   }
 
   getCartCount(): number {

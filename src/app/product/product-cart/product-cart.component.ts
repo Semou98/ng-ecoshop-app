@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { Router } from '@angular/router';
 import { CartService } from '../../cart/cart.service';
+import { NotificationService } from '../../notification.service';
 
 @Component({
   selector: 'app-product-cart',
@@ -15,12 +16,14 @@ export class ProductCartComponent {
 
   constructor(
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private notificationService: NotificationService
   ){}
 
   onAddToCart() {
     this.cartService.addToCart(this.product);
-    this.addToCart.emit(this.product); // On garde l'émission pour la notification
+    this.addToCart.emit(this.product);
+    this.notificationService.show('Produit ajouté au panier avec succès !');
   }
 
   navigateToProductDetails() {
