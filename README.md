@@ -35,7 +35,7 @@ EcoShop est une plateforme d'e-commerce spécialisée dans les produits écologi
 ## Installation et mise en place du projet
 **Cloner le dépôt GitHub**: git clone https://github.com/Semou98/ng-ecoshop-app.git
 
-## Lien site du projet:
+## Lien du projet déployé: https://vercel.com/semous-projects/ng-ecoshop-app
 
 
 ## ********************************************************
