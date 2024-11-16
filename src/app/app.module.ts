@@ -9,13 +9,15 @@ import { HomeComponent } from './home/home.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { NotificationComponent } from './notification/notification.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    NotificationComponent
+    NotificationComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
