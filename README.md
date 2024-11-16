@@ -30,7 +30,7 @@ EcoShop est une plateforme d'e-commerce spécialisée dans les produits écologi
 
 ## Technologies utilisées
 - **Frontend** : Angular, TypeScript, Bootstrap, HTML et CSS
-- **Outils** : GitHub, Jest pour les tests, Vercel pour le déploiement, Git pour le contrôle de version
+- **Outils** : Fake API STORE, GitHub, Jest pour les tests, Vercel pour le déploiement, Git pour le contrôle de version
 
 ## Installation et mise en place du projet
 **Cloner le dépôt GitHub**: git clone https://github.com/Semou98/ng-ecoshop-app.git
