@@ -13,24 +13,28 @@ export class CartService {
   
   constructor() {
     // Initialiser avec les données du localStorage
-    this.cartItems.next(this.getStoredItems());
+    this.loadFromStorage();
+    //this.cartItems.next(this.getStoredItems());
+  }
+
+  public loadFromStorage(): void {
+    const items = this.getStoredItems();
+    this.cartItems.next(items);
   }
 
   // Getter qui récupère les items du localStorage
   private getStoredItems(): CartItem[] {
     const storedCart = localStorage.getItem('cart');
-    console.log("Stored cart "+ JSON.stringify(storedCart));
     return storedCart ? JSON.parse(storedCart) : [];
   }
 
   // Mise à jour du localStorage
   private updateStorage(items: CartItem[]): void {
     localStorage.setItem('cart', JSON.stringify(items));
-    this.cartItems.next(items); // Émettre les nouvelles données
+    this.cartItems.next(items);
   }
 
   getCartItems(): CartItem[] {
-    //return this.getStoredItems();
     return this.cartItems.value;
   }
 

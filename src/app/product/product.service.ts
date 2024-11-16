@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
-import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, forkJoin, map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,11 @@ export class ProductService {
   private localCategoriesSubject = new BehaviorSubject<string[]>([]);
   private isInitialized = false;
   
-  constructor(private http: HttpClient) {
-    this.loadInitialData();
-  }
+  constructor(private http: HttpClient) {}
 
-  private loadInitialData() {
+  // Séparer l'initialisation du constructeur
+  initialize(): Observable<[Product[], string[]]> {
     if (!this.isInitialized) {
-      // Essayer de charger depuis localStorage d'abord
       const storedProducts = localStorage.getItem(this.STORAGE_KEY);
       const storedCategories = localStorage.getItem(this.CATEGORIES_KEY);
 
@@ -31,21 +29,23 @@ export class ProductService {
         this.localProductsSubject.next(JSON.parse(storedProducts));
         this.localCategoriesSubject.next(JSON.parse(storedCategories));
         this.isInitialized = true;
+        return of([JSON.parse(storedProducts), JSON.parse(storedCategories)]);
       } else {
-        // Si pas de données en localStorage, charger depuis l'API
-        this.http.get<Product[]>(this.productsApiUrl).subscribe(products => {
-          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(products));
-          this.localProductsSubject.next(products);
-        });
-
-        this.http.get<string[]>(this.categoriesApiUrl).subscribe(categories => {
-          localStorage.setItem(this.CATEGORIES_KEY, JSON.stringify(categories));
-          this.localCategoriesSubject.next(categories);
-        });
-        
-        this.isInitialized = true;
+        return forkJoin([
+          this.http.get<Product[]>(this.productsApiUrl),
+          this.http.get<string[]>(this.categoriesApiUrl)
+        ]).pipe(
+          tap(([products, categories]) => {
+            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(products));
+            localStorage.setItem(this.CATEGORIES_KEY, JSON.stringify(categories));
+            this.localProductsSubject.next(products);
+            this.localCategoriesSubject.next(categories);
+            this.isInitialized = true;
+          })
+        );
       }
     }
+    return of([this.localProductsSubject.value, this.localCategoriesSubject.value]);
   }
 
   getAllProducts(): Observable<Product[]> {
@@ -165,19 +165,6 @@ export class ProductService {
 
   /******************************* FILTRE DE PRODUITS **********************************/
 
-  getProductsInCategory(category: string): Observable<Product[]> {
-    const products = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]');
-    const filtered = products.filter((p: Product) => p.category === category);
-    return of(filtered);
-  }
-
-  getSortedProducts(sortOrder: 'asc' | 'desc'): Observable<Product[]> {
-    const products = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]');
-    const sorted = [...products].sort((a: Product, b: Product) => {
-      return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
-    });
-    return of(sorted);
-  }
 
   /***************************** METHODES GENERIQUES ***************************************/
 
