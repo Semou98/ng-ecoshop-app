@@ -1,10 +1,26 @@
-<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="row g-3">
+<form 
+  [formGroup]="productForm" 
+  (ngSubmit)="onSubmit()" 
+  class="row g-3"
+  role="form"
+  aria-labelledby="form-title"
+>
   <div class="col-md-8 mx-auto">
     <div class="card shadow-sm">
       <div class="card-body">
+        <h2 id="form-title" class="visually-hidden">
+          {{ isEditForm ? 'Modifier' : 'Créer' }} un produit
+        </h2>
+
         <!-- Titre -->
         <div class="mb-3 row">
-          <label for="title" class="col-sm-3 col-form-label">Titre<span class="text-danger">*</span></label>
+          <label 
+            for="title" 
+            class="col-sm-3 col-form-label"
+            [attr.aria-required]="true"
+          >
+            Titre<span class="text-danger" aria-hidden="true">*</span>
+          </label>
           <div class="col-sm-9">
             <input 
               type="text" 
@@ -13,22 +29,39 @@
               formControlName="title"
               placeholder="Nom du produit"
               [class.is-invalid]="productForm.get('title')?.invalid && productForm.get('title')?.touched"
+              [attr.aria-invalid]="productForm.get('title')?.invalid && productForm.get('title')?.touched"
+              [attr.aria-describedby]="'title-error'"
+              autocomplete="off"
             >
-            <div class="invalid-feedback" *ngIf="productForm.get('title')?.errors?.['required']">
-              Le titre est requis
-            </div>
-            <div class="invalid-feedback" *ngIf="productForm.get('title')?.errors?.['minlength']">
-              Le titre doit contenir au moins 3 caractères
+            <div 
+              id="title-error" 
+              class="invalid-feedback" 
+              role="alert"
+              *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched"
+              aria-live="polite"
+            >
+              <div *ngIf="productForm.get('title')?.errors?.['required']">
+                Le titre est requis
+              </div>
+              <div *ngIf="productForm.get('title')?.errors?.['minlength']">
+                Le titre doit contenir au moins 3 caractères
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Prix -->
         <div class="mb-3 row">
-          <label for="price" class="col-sm-3 col-form-label">Prix<span class="text-danger">*</span></label>
+          <label 
+            for="price" 
+            class="col-sm-3 col-form-label"
+            [attr.aria-required]="true"
+          >
+            Prix<span class="text-danger" aria-hidden="true">*</span>
+          </label>
           <div class="col-sm-9">
             <div class="input-group">
-              <span class="input-group-text">€</span>
+              <span class="input-group-text" aria-hidden="true">€</span>
               <input 
                 type="number" 
                 class="form-control" 
@@ -37,20 +70,37 @@
                 placeholder="0.00"
                 step="0.01"
                 [class.is-invalid]="productForm.get('price')?.invalid && productForm.get('price')?.touched"
+                [attr.aria-invalid]="productForm.get('price')?.invalid && productForm.get('price')?.touched"
+                [attr.aria-describedby]="'price-error'"
+                aria-label="Prix en euros"
               >
             </div>
-            <div class="invalid-feedback" *ngIf="productForm.get('price')?.errors?.['required']">
-              Le prix est requis
-            </div>
-            <div class="invalid-feedback" *ngIf="productForm.get('price')?.errors?.['min']">
-              Le prix doit être positif
+            <div 
+              id="price-error" 
+              class="invalid-feedback" 
+              role="alert"
+              *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched"
+              aria-live="polite"
+            >
+              <div *ngIf="productForm.get('price')?.errors?.['required']">
+                Le prix est requis
+              </div>
+              <div *ngIf="productForm.get('price')?.errors?.['min']">
+                Le prix doit être positif
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Description -->
         <div class="mb-3 row">
-          <label for="description" class="col-sm-3 col-form-label">Description<span class="text-danger">*</span></label>
+          <label 
+            for="description" 
+            class="col-sm-3 col-form-label"
+            [attr.aria-required]="true"
+          >
+            Description<span class="text-danger" aria-hidden="true">*</span>
+          </label>
           <div class="col-sm-9">
             <textarea 
               class="form-control" 
@@ -59,40 +109,72 @@
               rows="4"
               placeholder="Description du produit"
               [class.is-invalid]="productForm.get('description')?.invalid && productForm.get('description')?.touched"
+              [attr.aria-invalid]="productForm.get('description')?.invalid && productForm.get('description')?.touched"
+              [attr.aria-describedby]="'description-error'"
             ></textarea>
-            <div class="invalid-feedback" *ngIf="productForm.get('description')?.errors?.['required']">
-              La description est requise
-            </div>
-            <div class="invalid-feedback" *ngIf="productForm.get('description')?.errors?.['minlength']">
-              La description doit contenir au moins 10 caractères
+            <div 
+              id="description-error" 
+              class="invalid-feedback" 
+              role="alert"
+              *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched"
+              aria-live="polite"
+            >
+              <div *ngIf="productForm.get('description')?.errors?.['required']">
+                La description est requise
+              </div>
+              <div *ngIf="productForm.get('description')?.errors?.['minlength']">
+                La description doit contenir au moins 10 caractères
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Catégorie -->
         <div class="mb-3 row">
-          <label for="category" class="col-sm-3 col-form-label">Catégorie<span class="text-danger">*</span></label>
+          <label 
+            for="category" 
+            class="col-sm-3 col-form-label"
+            [attr.aria-required]="true"
+          >
+            Catégorie<span class="text-danger" aria-hidden="true">*</span>
+          </label>
           <div class="col-sm-9">
             <select 
               class="form-select" 
               id="category" 
               formControlName="category"
               [class.is-invalid]="productForm.get('category')?.invalid && productForm.get('category')?.touched"
+              [attr.aria-invalid]="productForm.get('category')?.invalid && productForm.get('category')?.touched"
+              [attr.aria-describedby]="'category-error'"
             >
-              <option value="">Sélectionner une catégorie</option>
+              <option value="" disabled>Sélectionner une catégorie</option>
               <option *ngFor="let category of categories" [value]="category">
                 {{ category | titlecase }}
               </option>
             </select>
-            <div class="invalid-feedback" *ngIf="productForm.get('category')?.errors?.['required']">
-              La catégorie est requise
+            <div 
+              id="category-error" 
+              class="invalid-feedback" 
+              role="alert"
+              *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.touched"
+              aria-live="polite"
+            >
+              <div *ngIf="productForm.get('category')?.errors?.['required']">
+                La catégorie est requise
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Image -->
         <div class="mb-3 row">
-          <label for="image" class="col-sm-3 col-form-label">Image URL<span class="text-danger">*</span></label>
+          <label 
+            for="image" 
+            class="col-sm-3 col-form-label"
+            [attr.aria-required]="true"
+          >
+            Image URL<span class="text-danger" aria-hidden="true">*</span>
+          </label>
           <div class="col-sm-9">
             <input 
               type="url" 
@@ -101,13 +183,34 @@
               formControlName="image"
               placeholder="https://exemple.com/image.jpg"
               [class.is-invalid]="productForm.get('image')?.invalid && productForm.get('image')?.touched"
+              [attr.aria-invalid]="productForm.get('image')?.invalid && productForm.get('image')?.touched"
+              [attr.aria-describedby]="'image-error image-preview'"
             >
             <!-- Prévisualisation de l'image -->
-            <div *ngIf="imagePreview" class="mt-2">
-              <img [src]="imagePreview" class="img-thumbnail" style="max-height: 200px;" alt="Prévisualisation">
+            <div 
+              *ngIf="imagePreview" 
+              class="mt-2"
+              id="image-preview"
+              role="img"
+              [attr.aria-label]="'Prévisualisation de l\'image du produit'"
+            >
+              <img 
+                [src]="imagePreview" 
+                class="img-thumbnail" 
+                style="max-height: 200px;" 
+                alt="Prévisualisation du produit"
+              >
             </div>
-            <div class="invalid-feedback" *ngIf="productForm.get('image')?.errors?.['required']">
-              L'URL de l'image est requise
+            <div 
+              id="image-error" 
+              class="invalid-feedback" 
+              role="alert"
+              *ngIf="productForm.get('image')?.invalid && productForm.get('image')?.touched"
+              aria-live="polite"
+            >
+              <div *ngIf="productForm.get('image')?.errors?.['required']">
+                L'URL de l'image est requise
+              </div>
             </div>
           </div>
         </div>
@@ -115,15 +218,21 @@
         <!-- Boutons -->
         <div class="row mt-4">
           <div class="col-12 text-end">
-            <button type="button" class="btn btn-secondary me-2" routerLink="/products/list">
+            <button 
+              type="button" 
+              class="btn btn-secondary me-2" 
+              routerLink="/products/list"
+              aria-label="Annuler et retourner à la liste des produits"
+            >
               Annuler
             </button>
             <button 
               type="submit" 
               class="eco-btn"
               [disabled]="productForm.invalid || productForm.pristine || isSubmitting"
+              [attr.aria-busy]="isSubmitting"
+              [attr.aria-label]="(isEditForm ? 'Mettre à jour' : 'Créer') + ' le produit'"
             >
-              <!-- <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status"></span> -->
               {{ isEditForm ? 'Mettre à jour' : 'Créer' }} le produit
             </button>
           </div>

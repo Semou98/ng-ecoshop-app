@@ -1,15 +1,16 @@
-<div class="filters">
+<div class="filters" role="complementary" aria-label="Filtres des produits">
   <div class="filter-header position-sticky top-0 bg-white z-1 pb-2">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="h5 mb-0">Filtres</h3>
+      <h3 class="h5 mb-0" id="filters-title">Filtres</h3>
       <button 
         class="btn btn-sm btn-outline-secondary"
         (click)="resetFilters()"
         [disabled]="filterState.categories.selected.length === 0 && !filterState.sort && 
                    filterState.priceRange.current.min === filterState.priceRange.min && 
                    filterState.priceRange.current.max === filterState.priceRange.max"
+        aria-label="Réinitialiser tous les filtres"
       >
-        <i class="bi bi-arrow-counterclockwise"></i>
+        <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
         Réinitialiser
       </button>
     </div>
@@ -17,133 +18,203 @@
 
   <div class="filter-container">
     <div class="accordion" id="filterAccordion">
-      <!-- Le reste du contenu de l'accordéon reste identique -->
-      <div class="accordion" id="filterAccordion">
-        <!-- Tri -->
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#sortCollapse">
-              Trier par prix
-            </button>
-          </h2>
-          <div id="sortCollapse" class="accordion-collapse collapse show" data-bs-parent="#filterAccordion">
-            <div class="accordion-body">
-              <div class="btn-group w-100">
-                <button 
-                  class="btn btn-outline-secondary btn-sm"
-                  [class.active]="filterState.sort === 'asc'"
-                  (click)="onSortChange(filterState.sort === 'asc' ? null : 'asc')"
+      <!-- Tri -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button 
+            class="accordion-button" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#sortCollapse"
+            [attr.aria-expanded]="true"
+            aria-controls="sortCollapse"
+          >
+            Trier par prix
+          </button>
+        </h2>
+        <div 
+          id="sortCollapse" 
+          class="accordion-collapse collapse show" 
+          data-bs-parent="#filterAccordion"
+          role="region" 
+          aria-labelledby="sort-heading"
+        >
+          <div class="accordion-body">
+            <div class="btn-group w-100" role="group" aria-label="Options de tri par prix">
+              <button 
+                class="btn btn-outline-secondary btn-sm"
+                [class.active]="filterState.sort === 'asc'"
+                (click)="onSortChange(filterState.sort === 'asc' ? null : 'asc')"
+                [attr.aria-pressed]="filterState.sort === 'asc'"
+                aria-label="Trier par prix croissant"
+              >
+                <i class="bi bi-arrow-up" aria-hidden="true"></i> Croissant
+              </button>
+              <button 
+                class="btn btn-outline-secondary btn-sm"
+                [class.active]="filterState.sort === 'desc'"
+                (click)="onSortChange(filterState.sort === 'desc' ? null : 'desc')"
+                [attr.aria-pressed]="filterState.sort === 'desc'"
+                aria-label="Trier par prix décroissant"
+              >
+                <i class="bi bi-arrow-down" aria-hidden="true"></i> Décroissant
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Catégories -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button 
+            class="accordion-button" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#categoriesCollapse"
+            [attr.aria-expanded]="true"
+            aria-controls="categoriesCollapse"
+          >
+            Catégories
+          </button>
+        </h2>
+        <div 
+          id="categoriesCollapse" 
+          class="accordion-collapse collapse show" 
+          data-bs-parent="#filterAccordion"
+          role="region" 
+          aria-labelledby="categories-heading"
+        >
+          <div class="accordion-body">
+            <div 
+              class="category-list" 
+              [class.loading]="isLoading.categories"
+              role="group" 
+              aria-label="Liste des catégories"
+            >
+              <div class="form-check" *ngFor="let category of paginatedCategories">
+                <input 
+                  class="form-check-input" 
+                  type="checkbox" 
+                  [id]="'category-' + category"
+                  [checked]="filterState.categories.selected.includes(category)"
+                  (change)="onCategoryChange(category)"
+                  [attr.aria-label]="'Filtrer par catégorie ' + category"
                 >
-                  <i class="bi bi-arrow-up"></i> Croissant
-                </button>
-                <button 
-                  class="btn btn-outline-secondary btn-sm"
-                  [class.active]="filterState.sort === 'desc'"
-                  (click)="onSortChange(filterState.sort === 'desc' ? null : 'desc')"
-                >
-                  <i class="bi bi-arrow-down"></i> Décroissant
-                </button>
+                <label class="form-check-label text-capitalize" [for]="'category-' + category">
+                  {{ category }}
+                </label>
               </div>
             </div>
           </div>
         </div>
-    
-        <!-- Catégories -->
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesCollapse">
-              Catégories
-            </button>
-          </h2>
-          <div id="categoriesCollapse" class="accordion-collapse collapse show" data-bs-parent="#filterAccordion">
-            <div class="accordion-body">
-              <div class="category-list" [class.loading]="isLoading.categories">
-                <div class="form-check" *ngFor="let category of paginatedCategories">
-                  <input 
-                    class="form-check-input" 
-                    type="checkbox" 
-                    [id]="category"
-                    [checked]="filterState.categories.selected.includes(category)"
-                    (change)="onCategoryChange(category)"
-                  >
-                  <label class="form-check-label text-capitalize" [for]="category">
-                    {{ category }}
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
         
-          <!-- Pagination -->
-          <nav *ngIf="filterState.categories.list.length > filterState.itemsPerPage">
-            <ul class="pagination pagination-sm justify-content-center mt-3">
-              <li class="page-item" [class.disabled]="filterState.currentPage === 1">
-                <button class="page-link" (click)="onPageChange(filterState.currentPage - 1)">
-                  <i class="bi bi-chevron-left"></i>
-                </button>
-              </li>
-              <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
-                  [class.active]="filterState.currentPage === i + 1">
-                <button class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</button>
-              </li>
-              <li class="page-item" [class.disabled]="filterState.currentPage === totalPages">
-                <button class="page-link" (click)="onPageChange(filterState.currentPage + 1)">
-                  <i class="bi bi-chevron-right"></i>
-                </button>
-              </li>
-            </ul>
-          </nav>      
+        <!-- Pagination -->
+        <nav aria-label="Navigation des pages de catégories" *ngIf="filterState.categories.list.length > filterState.itemsPerPage">
+          <ul class="pagination pagination-sm justify-content-center mt-3">
+            <li class="page-item" [class.disabled]="filterState.currentPage === 1">
+              <button 
+                class="page-link" 
+                (click)="onPageChange(filterState.currentPage - 1)"
+                [attr.aria-label]="'Aller à la page précédente'"
+                [attr.aria-disabled]="filterState.currentPage === 1"
+              >
+                <i class="bi bi-chevron-left" aria-hidden="true"></i>
+              </button>
+            </li>
+            <li 
+              class="page-item" 
+              *ngFor="let page of [].constructor(totalPages); let i = index"
+              [class.active]="filterState.currentPage === i + 1"
+            >
+              <button 
+                class="page-link" 
+                (click)="onPageChange(i + 1)"
+                [attr.aria-label]="'Aller à la page ' + (i + 1)"
+                [attr.aria-current]="filterState.currentPage === i + 1 ? 'page' : null"
+              >
+                {{ i + 1 }}
+              </button>
+            </li>
+            <li class="page-item" [class.disabled]="filterState.currentPage === totalPages">
+              <button 
+                class="page-link" 
+                (click)="onPageChange(filterState.currentPage + 1)"
+                [attr.aria-label]="'Aller à la page suivante'"
+                [attr.aria-disabled]="filterState.currentPage === totalPages"
+              >
+                <i class="bi bi-chevron-right" aria-hidden="true"></i>
+              </button>
+            </li>
+          </ul>
+        </nav>      
                 
-          <div *ngIf="isLoading.categories" class="text-center py-3">
-            <div class="spinner-border spinner-border-sm" role="status">
-              <span class="visually-hidden">Chargement...</span>
-            </div>
-          </div>  
-        </div>
+        <div *ngIf="isLoading.categories" class="text-center py-3">
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Chargement des catégories en cours...</span>
+          </div>
+        </div>  
+      </div>
     
-        <!-- Prix -->
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#priceCollapse">
-              Fourchette de prix
-            </button>
-          </h2>
-          <div id="priceCollapse" class="accordion-collapse collapse show" data-bs-parent="#filterAccordion">
-            <div class="accordion-body">
-              <div class="row g-2">
-                <div class="col">
-                  <label class="form-label small">Min</label>
-                  <div class="input-group input-group-sm">
-                    <input 
-                      type="number" 
-                      class="form-control" 
-                      [value]="filterState.priceRange.current.min"
-                      (change)="onPriceRangeChange($event, 'min')"
-                      [min]="filterState.priceRange.min"
-                      [max]="filterState.priceRange.current.max"
-                    >
-                    <span class="input-group-text">€</span>
-                  </div>
+      <!-- Prix -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button 
+            class="accordion-button" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#priceCollapse"
+            [attr.aria-expanded]="true"
+            aria-controls="priceCollapse"
+          >
+            Fourchette de prix
+          </button>
+        </h2>
+        <div 
+          id="priceCollapse" 
+          class="accordion-collapse collapse show" 
+          data-bs-parent="#filterAccordion"
+          role="region" 
+          aria-labelledby="price-heading"
+        >
+          <div class="accordion-body">
+            <div class="row g-2" role="group" aria-label="Sélection de la fourchette de prix">
+              <div class="col">
+                <label class="form-label small" for="price-min">Prix minimum</label>
+                <div class="input-group input-group-sm">
+                  <input 
+                    id="price-min"
+                    type="number" 
+                    class="form-control" 
+                    [value]="filterState.priceRange.current.min"
+                    (change)="onPriceRangeChange($event, 'min')"
+                    [min]="filterState.priceRange.min"
+                    [max]="filterState.priceRange.current.max"
+                    aria-label="Prix minimum en euros"
+                  >
+                  <span class="input-group-text" aria-hidden="true">€</span>
                 </div>
-                <div class="col">
-                  <label class="form-label small">Max</label>
-                  <div class="input-group input-group-sm">
-                    <input 
-                      type="number" 
-                      class="form-control" 
-                      [value]="filterState.priceRange.current.max"
-                      (change)="onPriceRangeChange($event, 'max')"
-                      [min]="filterState.priceRange.current.min"
-                      [max]="filterState.priceRange.max"
-                    >
-                    <span class="input-group-text">€</span>
-                  </div>
+              </div>
+              <div class="col">
+                <label class="form-label small" for="price-max">Prix maximum</label>
+                <div class="input-group input-group-sm">
+                  <input 
+                    id="price-max"
+                    type="number" 
+                    class="form-control" 
+                    [value]="filterState.priceRange.current.max"
+                    (change)="onPriceRangeChange($event, 'max')"
+                    [min]="filterState.priceRange.current.min"
+                    [max]="filterState.priceRange.max"
+                    aria-label="Prix maximum en euros"
+                  >
+                  <span class="input-group-text" aria-hidden="true">€</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div> 
-    </div>
+      </div>
+    </div> 
   </div>
 </div>
