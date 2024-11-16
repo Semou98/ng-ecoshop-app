@@ -1,64 +1,86 @@
-<div class="container py-4">
+<main class="container py-4" role="main">
   <ng-container *ngIf="viewModel$ | async as vm">
     <div class="row g-4">
-
       <!-- Section filtres -->
-      <div class="col-12 col-md-3">
+      <aside class="col-12 col-md-3" role="search" aria-label="Filtres et recherche de produits">
         <div class="filter-card bg-white shadow-sm rounded p-3">
-          <!-- Recherche et filtres -->
           <app-product-search
             (searchResults)="onSearchResults($event)"
             class="mb-4"
+            [attr.aria-label]="'Recherche de produits'"
           ></app-product-search>
           <app-product-filter
             (filterChange)="onFilterChange($event)"
+            [attr.aria-label]="'Filtres de produits'"
           ></app-product-filter>
         </div>
-      </div>
+      </aside>
 
       <!-- Grille de produits -->
-      <div class="col-12 col-md-9">
+      <section class="col-12 col-md-9" role="region" aria-label="Liste des produits">
         <!-- Header catalogue produits -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <header class="d-flex justify-content-between align-items-center mb-4">
           <div>
-            <h2 class="h4 mb-0">Nos produits</h2>
-            <small class="text-muted">
+            <h1 class="h4 mb-0" id="products-title">Nos produits</h1>
+            <small class="text-muted" aria-live="polite" role="status">
               {{ vm.filteredProducts.length }} produit(s) trouvé(s)
             </small>
           </div>
           <button 
             class="eco-btn d-flex align-items-center"
-            (click)="onCreateProduct()">
-            <i class="bi bi-plus-circle me-2"></i>
+            (click)="onCreateProduct()"
+            aria-label="Créer un nouveau produit">
+            <i class="bi bi-plus-circle me-2" aria-hidden="true"></i>
             Nouveau produit
           </button>
-        </div>
+        </header>
 
-        <div class="row g-4">
-          <div *ngFor="let product of (vm.searchResults?.length ? vm.searchResults : vm.filteredProducts)" class="col-12 col-sm-6 col-lg-4">
-            <!-- Affichage des produits dans des carts -->
+        <!-- Grille des produits -->
+        <div 
+          class="row g-4" 
+          role="list"
+          aria-labelledby="products-title"
+        >
+          <div 
+            *ngFor="let product of (vm.searchResults?.length ? vm.searchResults : vm.filteredProducts)"
+            class="col-12 col-sm-6 col-lg-4"
+            role="listitem"
+          >
             <app-product-cart
               [product]="product"
               (click)="onAddToCart(product)"
               [routerLink]="['/product', product.id]"
               class="h-100"
+              [attr.aria-label]="'Voir les détails de ' + product.title"
+              role="article"
+              tabindex="0"
+              (keyup.enter)="onAddToCart(product)"
             ></app-product-cart>
           </div>
         </div>
 
         <!-- Message si aucun produit -->
-        <div *ngIf="vm.filteredProducts.length === 0 && !vm.loading" 
-             class="text-center py-5">
+        <div 
+          *ngIf="vm.filteredProducts.length === 0 && !vm.loading" 
+          class="text-center py-5"
+          role="alert"
+          aria-live="polite"
+        >
           <p class="text-muted">Aucun produit ne correspond à vos critères</p>
         </div>
-      </div>
+      </section>
     </div>
 
     <!-- Loader -->
-    <div *ngIf="vm.loading" class="position-fixed top-50 start-50 translate-middle">
+    <div 
+      *ngIf="vm.loading" 
+      class="position-fixed top-50 start-50 translate-middle"
+      role="alert"
+      aria-live="polite"
+    >
       <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Chargement...</span>
+        <span class="visually-hidden">Chargement de la liste des produits en cours...</span>
       </div>
     </div>
   </ng-container>
-</div>
+</main>
