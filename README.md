@@ -5,9 +5,7 @@ EcoShop est une plateforme d'e-commerce spécialisée dans les produits écologi
 
 # Lien projet déployé:
 
-
-# ############################################################################
-
+## ********************************************************
 
 ## Fonctionnalités implémentées
 
