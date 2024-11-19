@@ -11,13 +11,14 @@ import { NotificationComponent } from './notification/notification.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
     NotificationComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
