@@ -1,8 +1,15 @@
 # EcoShop - Plateforme e-commerce écologique
-
 EcoShop est une plateforme d'e-commerce spécialisée dans les produits écologiques. Ce projet est développé avec Angular pour fournir une interface utilisateur fluide, rapide et responsive. Le but est d'offrir une expérience d'achat en ligne optimisée et respectueuse des bonnes pratiques de développement.
 
-## Fonctionnalités à implémenter
+# Lien présentation du projet:
+
+# Lien projet déployé:
+
+
+# ############################################################################
+
+
+## Fonctionnalités implémentées
 
 ## 1. Barre de navigation qui devient un menu hamburger sur mobile
 - Logo cliquable et renvoyant à la page d'accueil.

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - EcoShop</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Favicon (optionnel, mais recommandé) -->
+    <link rel="icon" type="image/png" href="chemin/vers/votre/favicon.png">
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .project-card {
+            transition: transform 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        .project-card:hover {
+            transform: scale(1.02);
+        }
+        .carousel-inner {
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 8%;
+            color: black;
+        }
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid rgba(0,0,0,.125);
+            padding: 1rem;
+        }
+        .carousel img {
+            height: 300px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+        .modal-body img {
+            max-height: 80vh;
+            width: auto;
+            margin: 0 auto;
+        }
+        /* Animation pour le zoom */
+        .zoom-in {
+            animation: zoomIn 0.3s ease-out;
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+    <!-- <div class="container px-0"> -->
+        <div class="d-flex align-items-center justify-content-between w-100 px-5">
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand me-4 fw-semibold" href="#">Sémou DIOUF</a>
+                <div class="d-flex align-items-center">
+                    <a href="mailto:dsemou99@gmail.com" class="text-muted me-3 text-decoration-none">
+                        <i class="bi bi-envelope-fill me-1"></i>
+                        <span class="d-none d-md-inline">dsemou99@gmail.com</span>
+                    </a>
+                    <a href="tel:+221773916739" class="text-muted text-decoration-none">
+                        <i class="bi bi-telephone-fill me-1"></i>
+                        <span class="d-none d-md-inline">+221 77 391 67 30</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="d-flex align-items-center">
+                <a href="https://votre-portfolio-en-ligne.com" 
+                   class="btn btn-outline-primary btn-sm portfolio-link" 
+                   style="
+                       transition: all 0.3s ease;
+                       text-decoration: none;
+                   "
+                   onmouseover="this.style.transform = 'scale(1.05)'; this.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)'"
+                   onmouseout="this.style.transform = 'scale(1)'; this.style.boxShadow = 'none'">
+                   <i class="bi bi-box-arrow-up-right"></i>
+                    Portfolio
+                </a>
+            </div>
+        </div>
+    <!-- </div> -->
+</nav>
+
+    <!-- Header -->
+    <header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">Projet EcoShop</h1>
+            <p class="lead">Application Web E-commerce Écologique Développée avec Angular</p>
+        </div>
+    </header>
+
+    <!-- Project Details -->
+    <section id="project-details" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="mb-4">Présentation du Projet</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>EcoShop - Plateforme E-commerce Écologique</h3>
+                            <p>EcoShop est une application web moderne conçue pour promouvoir des produits écologiques, offrant une expérience utilisateur fluide et intuitive.</p>
+                            
+                            <h4>Fonctionnalités Clés</h4>
+                            <ul>
+                                <li>Catalogue de produits écologiques</li>
+                                <li>Système de panier dynamique</li>
+                                <li>Navigation responsive</li>
+                                <li>Intégration d'API pour les données produits</li>
+                            </ul>
+
+                            <h4>Technologies Utilisées</h4>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-info">Angular</span>
+                                <span class="badge bg-info">TypeScript</span>
+                                <span class="badge bg-info">RxJS</span>
+                                <span class="badge bg-info">Bootstrap</span>
+                                <span class="badge bg-info">GitHub</span>
+                                <span class="badge bg-info">Vercel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots avec Carousels -->
+    <section id="screenshots" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Captures d'Écran</h2>
+            <div class="row">
+                <!-- Génération dynamique des carousels -->
+                <div id="carouselsContainer" class="row">
+                    <!-- Les carousels seront injectés ici par JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal pour le zoom -->
+    <div class="modal fade" id="imageZoomModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="" alt="" class="img-fluid zoom-in">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Links -->
+    <section id="project-links" class="py-5 text-center">
+        <div class="container">
+            <h2 class="mb-4">Liens du Projet</h2>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="https://github.com/Semou98/ng-ecoshop-app" class="btn btn-primary" target="_blank">
+                    <i class="bi bi-github"></i> Dépôt GitHub
+                </a>
+                <a href="https://ng-ecoshop-app.vercel.app" class="btn btn-success" target="_blank">
+                    <i class="bi bi-globe"></i> Site Déployé
+                </a>
+                <a href="" class="btn btn-secondary" target="_blank">
+                    <i class="bi bi-box-arrow-up-right"></i> Portfolio
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <p>&copy; 2024 Sémou DIOUF. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Configuration des carousels
+        const carouselsConfig = [
+            {
+                id: 'homeCarousel',
+                title: "Page d'Accueil",
+                images: [
+                    { src: 'images/home-1.png', alt: 'Accueil - Vue 1' },
+                    { src: 'images/home-2.png', alt: 'Accueil - Vue 2' },
+                    { src: 'images/home-3.png', alt: 'Accueil - Vue 3' }
+                ]
+            },
+            {
+                id: 'catalogueCarousel',
+                title: 'Catalogue Produits',
+                images: [
+                    { src: 'images/catalogue-1.png', alt: 'Catalogue - Vue 1' },
+                    { src: 'images/catalogue-2.png', alt: 'Catalogue - Vue 2' },
+                ]
+            },
+            {
+                id: 'detailProductCarousel',
+                title: 'Détails Produit',
+                images: [
+                    { src: 'images/detail-product.png', alt: 'Détails produit' },
+                ]
+            },
+            {
+                id: 'updateProductCarousel',
+                title: 'Modifier Produit',
+                images: [
+                    { src: 'images/updateProduct-1.png', alt: 'Modifier produit - Vue 1' },
+                    { src: 'images/updateProduct-2.png', alt: 'Modifier produit - Vue 1' },
+                ]
+            },
+            {
+                id: 'createProductCarousel',
+                title: 'Créer Produit',
+                images: [
+                    { src: 'images/create-product.png', alt: 'Créer produit' },
+                ]
+            },
+            {
+                id: 'cartCarousel',
+                title: 'Panier',
+                images: [
+                    { src: 'images/cart-2.png', alt: 'Panier - Vue 1' },
+                    { src: 'images/cart-1.png', alt: 'Panier - Vue 2' },
+                ]
+            },
+            /*{
+                id: 'contactCarousel',
+                title: 'Processus de Commande',
+                images: [
+                    { src: 'images/contact-1.png', alt: 'Contact - Vue 1' },
+                    { src: 'images/contact-2.png', alt: 'Contact - Vue 2' },
+                    { src: 'images/contact-3.png', alt: 'Contact - Vue 3' }
+                ]
+            }*/
+        ];
+
+        // Fonction pour créer le HTML d'un carousel
+        function createCarouselHTML(config) {
+            return `
+                <div class="col-md-6 mb-4">
+                    <div class="card project-card">
+                        <h5 class="card-header">${config.title}</h5>
+                        <div class="card-body p-0">
+                            <div id="${config.id}" class="carousel carousel-dark slide">
+                                <div class="carousel-indicators">
+                                    ${config.images.map((_, index) => `
+                                        <button type="button" 
+                                                data-bs-target="#${config.id}" 
+                                                data-bs-slide-to="${index}"
+                                                ${index === 0 ? 'class="active"' : ''}>
+                                        </button>
+                                    `).join('')}
+                                </div>
+                                <div class="carousel-inner">
+                                    ${config.images.map((image, index) => `
+                                        <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                                            <img src="${image.src}" 
+                                                 alt="${image.alt}" 
+                                                 class="d-block w-100"
+                                                 onclick="openZoomModal('${image.src}', '${image.alt}')">
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#${config.id}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                    <span class="visually-hidden">Précédent</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#${config.id}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                    <span class="visually-hidden">Suivant</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Fonction pour ouvrir la modal de zoom
+        function openZoomModal(imageSrc, imageAlt) {
+            const modal = new bootstrap.Modal(document.getElementById('imageZoomModal'));
+            const modalImage = document.querySelector('#imageZoomModal .modal-body img');
+            const modalTitle = document.querySelector('#imageZoomModal .modal-title');
+            
+            modalImage.src = imageSrc;
+            modalImage.alt = imageAlt;
+            modalTitle.textContent = imageAlt;
+            
+            modal.show();
+        }
+
+        // Initialisation des carousels
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('carouselsContainer');
+            carouselsConfig.forEach(config => {
+                container.innerHTML += createCarouselHTML(config);
+            });
+        });
+    </script>
+</body>
+</html>
