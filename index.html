@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - EcoShop</title>
+    <base href="/ng-ecoshop-app/">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Favicon (optionnel, mais recommandé) -->
-    <link rel="icon" type="image/png" href="chemin/vers/votre/favicon.png">
     <style>
         body {
             background-color: #f4f6f9;
@@ -189,7 +188,7 @@
     </footer>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
     
     <script>
         // Configuration des carousels
@@ -198,47 +197,47 @@
                 id: 'homeCarousel',
                 title: "Page d'Accueil",
                 images: [
-                    { src: '/images-presentation/home-1.png', alt: 'Accueil - Vue 1' },
-                    { src: '/images-presentation/home-2.png', alt: 'Accueil - Vue 2' },
-                    { src: '/images-presentation/home-3.png', alt: 'Accueil - Vue 3' }
+                    { src: 'images-presentation/home-1.png', alt: 'Accueil - Vue 1' },
+                    { src: 'images-presentation/home-2.png', alt: 'Accueil - Vue 2' },
+                    { src: 'images-presentation/home-3.png', alt: 'Accueil - Vue 3' }
                 ]
             },
             {
                 id: 'catalogueCarousel',
                 title: 'Catalogue Produits',
                 images: [
-                    { src: '/images-presentation/catalogue-1.png', alt: 'Catalogue - Vue 1' },
-                    { src: '/images-presentation/catalogue-2.png', alt: 'Catalogue - Vue 2' },
+                    { src: 'images-presentation/catalogue-1.png', alt: 'Catalogue - Vue 1' },
+                    { src: 'images-presentation/catalogue-2.png', alt: 'Catalogue - Vue 2' },
                 ]
             },
             {
                 id: 'detailProductCarousel',
                 title: 'Détails Produit',
                 images: [
-                    { src: '/images-presentation/detail-product.png', alt: 'Détails produit' },
+                    { src: 'images-presentation/detail-product.png', alt: 'Détails produit' },
                 ]
             },
             {
                 id: 'updateProductCarousel',
                 title: 'Modifier Produit',
                 images: [
-                    { src: '/images-presentation/updateProduct-1.png', alt: 'Modifier produit - Vue 1' },
-                    { src: '/images-presentation/updateProduct-2.png', alt: 'Modifier produit - Vue 1' },
+                    { src: 'images-presentation/updateProduct-1.png', alt: 'Modifier produit - Vue 1' },
+                    { src: 'images-presentation/updateProduct-2.png', alt: 'Modifier produit - Vue 1' },
                 ]
             },
             {
                 id: 'createProductCarousel',
                 title: 'Créer Produit',
                 images: [
-                    { src: '/images-presentation/create-product.png', alt: 'Créer produit' },
+                    { src: 'images-presentation/create-product.png', alt: 'Créer produit' },
                 ]
             },
             {
                 id: 'cartCarousel',
                 title: 'Panier',
                 images: [
-                    { src: '/images-presentation/cart-2.png', alt: 'Panier - Vue 1' },
-                    { src: '/images-presentation/cart-1.png', alt: 'Panier - Vue 2' },
+                    { src: 'images-presentation/cart-2.png', alt: 'Panier - Vue 1' },
+                    { src: 'images-presentation/cart-1.png', alt: 'Panier - Vue 2' },
                 ]
             },
             /*{
