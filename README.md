@@ -1,9 +1,9 @@
 # EcoShop - Plateforme e-commerce écologique
 EcoShop est une plateforme d'e-commerce spécialisée dans les produits écologiques. Ce projet est développé avec Angular pour fournir une interface utilisateur fluide, rapide et responsive. Le but est d'offrir une expérience d'achat en ligne optimisée et respectueuse des bonnes pratiques de développement.
 
-# Lien présentation du projet:
+# Lien présentation du projet: https://semou98.github.io/ng-ecoshop-app/
 
-# Lien projet déployé:
+# Lien projet déployé: https://ng-ecoshop-app.vercel.app/
 
 
 # ############################################################################
@@ -41,8 +41,6 @@ EcoShop est une plateforme d'e-commerce spécialisée dans les produits écologi
 
 ## Installation et mise en place du projet
 **Cloner le dépôt GitHub**: git clone https://github.com/Semou98/ng-ecoshop-app.git
-
-## Lien du projet déployé: https://vercel.com/semous-projects/ng-ecoshop-app
 
 
 ## ********************************************************
