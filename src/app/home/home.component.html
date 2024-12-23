@@ -29,43 +29,34 @@
       <div *ngIf="isLoading" class="text-center">
         <p role="status">Chargement des produits populaires...</p>
       </div>
-
-      <div *ngIf="error" 
-           class="alert alert-danger" 
-           role="alert">
+  
+      <div *ngIf="error" class="alert alert-danger" role="alert">
         {{error}}
       </div>
-
+  
       <div *ngIf="!isLoading && !error" 
-        id="popularProductsCarousel"
-        class="carousel slide mx-auto w-50" 
-        [attr.aria-label]="'Carrousel des produits les plus populaires'"
-        (keydown)="onKeydown($event)"
-        role="region"
-        data-bs-ride="carousel">
+           id="popularProductsCarousel" 
+           class="carousel slide mx-auto w-50" 
+           data-bs-ride="carousel">
         
-        <!-- Indicateurs du carrousel -->
-        <div class="carousel-indicators mx-auto">
+        <!-- Indicateurs -->
+        <div class="carousel-indicators">
           <button *ngFor="let product of popularProducts; let i = index"
                   type="button" 
                   [attr.data-bs-target]="'#popularProductsCarousel'"
                   [attr.data-bs-slide-to]="i"
-                  [class.active]="i === activeSlide"
-                  (click)="setSlide(i)"
-                  [attr.aria-label]="'Slide ' + (i + 1)"
-                  [attr.aria-current]="i === activeSlide">
+                  [class.active]="i === 0"
+                  [attr.aria-current]="i === 0"
+                  [attr.aria-label]="'Slide ' + (i + 1)">
           </button>
         </div>
-
-        <!-- Contenu du carrousel -->
+  
+        <!-- Slides -->
         <div class="carousel-inner">
           <div *ngFor="let product of popularProducts; let i = index"
                class="carousel-item"
-               [class.active]="i === activeSlide"
-               role="group"
-               [attr.aria-label]="'Produit ' + (i + 1) + ' sur 5'"
-               (click)="goToProductDetails(product.id)"
-               style="cursor: pointer">
+               [class.active]="i === 0"
+               (click)="goToProductDetails(product.id, $event)">
             <img [src]="product.image" 
                  [alt]="product.title"
                  class="d-block w-100 img-fluid">
@@ -79,23 +70,21 @@
             </div>
           </div>
         </div>
-
-        <!-- Contrôles du carrousel -->
+  
+        <!-- Contrôles -->
         <button class="carousel-control-prev" 
                 type="button" 
-                data-bs-target="#popularProductsCarousel"
-                data-bs-slide="prev"
-                (click)="previousSlide()"
-                aria-label="Produit précédent">
+                data-bs-target="#popularProductsCarousel" 
+                data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Précédent</span>
         </button>
         <button class="carousel-control-next" 
                 type="button" 
-                data-bs-target="#popularProductsCarousel"
-                data-bs-slide="next"
-                (click)="nextSlide()"
-                aria-label="Produit suivant">
+                data-bs-target="#popularProductsCarousel" 
+                data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Suivant</span>
         </button>
       </div>
     </div>
